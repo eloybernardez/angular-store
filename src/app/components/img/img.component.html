@@ -1,0 +1,4 @@
+<img width="200" [src]="img" *ngIf="img; else elseImg"/>
+<ng-template #elseImg>
+  <img width="200" src="https://images.pexels.com/photos/2002719/pexels-photo-2002719.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="alternate image"/>
+</ng-template>
