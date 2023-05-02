@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   imgParent = ''; // default value of imgParent
+
+  onLoaded(img: string) {
+    console.log('log padre', img);
+  }
 }
