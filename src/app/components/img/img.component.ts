@@ -35,8 +35,8 @@ export class ImgComponent
   @Output() loaded = new EventEmitter<string>();
   imageDefault =
     'https://images.pexels.com/photos/2002719/pexels-photo-2002719.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-  counter = 0;
-  timer: number | undefined;
+  // counter = 0;
+  // timer: number | undefined;
 
   constructor() {
     // before render
@@ -48,10 +48,10 @@ export class ImgComponent
     // before render -- runs only once
     // use for async -- fetch, subscribe, etc
     console.log('ngOnInit', 'imgValue =>', this.img);
-    this.timer = window.setInterval(() => {
-      this.counter += 1;
-      console.log('run counter');
-    }, 1000);
+    // this.timer = window.setInterval(() => {
+    //   this.counter += 1;
+    //   console.log('run counter');
+    // }, 1000);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -74,7 +74,7 @@ export class ImgComponent
   ngOnDestroy(): void {
     // delete from UI
     console.log('ngOnDestroy');
-    window.clearInterval(this.timer);
+    // window.clearInterval(this.timer);
   }
 
   imgError() {
