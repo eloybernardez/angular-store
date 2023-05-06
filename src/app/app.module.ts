@@ -7,9 +7,10 @@ import { ImgComponent } from './components/img/img.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsComponent } from './components/products/products.component';
 import { NavComponent } from './components/nav/nav.component';
+import { NavLinksComponent } from './components/nav-links/nav-links.component';
 
 @NgModule({
-  declarations: [AppComponent, ImgComponent, ProductComponent, ProductsComponent, NavComponent],
+  declarations: [AppComponent, ImgComponent, ProductComponent, ProductsComponent, NavComponent, NavLinksComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
