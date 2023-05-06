@@ -1,6 +1,6 @@
 <div class="show-mobile">
   <div>
-    <button>
+    <button (click)="toggleMenu()">
       <img src="./assets/svg/icon_menu.svg" alt="menu" />
     </button>
     <a href="">
@@ -10,6 +10,10 @@
       <img src="./assets/svg/icon_shopping_cart.svg" alt="logo" />
     </a>
   </div>
+  <div class="side-menu" [class.side-menu--open]="openMenu" >
+    <button (click)="toggleMenu()">Close</button>
+    <app-nav-links></app-nav-links>
+  </div>
 </div>
 <div class="hide-mobile">
   <div>
@@ -17,11 +21,7 @@
       <a class="logo" href="">
         <img src="./assets/svg/logo_yard_sale.svg" alt="logo" />
       </a>
-      <ul>
-        <li><a href="">All</a></li>
-        <li><a href="">Clothes</a></li>
-        <li><a href="">Electronics</a></li>
-      </ul>
+      <app-nav-links></app-nav-links>
     </nav>
     <div class="info">
       <div class="account">nicolas@nicolas.com</div>

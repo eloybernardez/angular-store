@@ -1,6 +1,9 @@
+<p>Amount of products is {{shoppingCart.length}}</p>
+<p>Total to pay ${{total}}</p>
 <section class="products--grid">
   <app-product
     *ngFor="let product of products"
     [product]="product"
+    (addedProduct)="onAddedToShoppingCart($event)"
   ></app-product>
 </section>
