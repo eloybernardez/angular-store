@@ -1,5 +1,9 @@
 <p>Amount of products is {{shoppingCart.length}}</p>
 <p>Total to pay ${{total}}</p>
+<p>Today: {{today | timeAgo}}</p>
+<p>Other date: {{date | date:'yyyy.dd.MM'}}</p>
+
+
 <section class="products--grid">
   <app-product
     *ngFor="let product of products"

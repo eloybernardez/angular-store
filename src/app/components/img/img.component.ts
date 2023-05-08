@@ -18,9 +18,11 @@ import {
 export class ImgComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
-  img: string = '';
+  img = '';
 
   // Get data from parent
+
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('img')
   // we use JS setter
   set imgValue(newImg: string) {
@@ -29,7 +31,7 @@ export class ImgComponent
     // code
   }
 
-  @Input() alt: string = '';
+  @Input() alt = '';
 
   // Send data to parent
   @Output() loaded = new EventEmitter<string>();
