@@ -13,6 +13,8 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { ChallengePipe } from './pipes/challenge.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -26,8 +28,15 @@ import { HighlightDirective } from './directives/highlight.directive';
     TimeAgoPipe,
     ChallengePipe,
     HighlightDirective,
+    ProductDetailComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    SwiperModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

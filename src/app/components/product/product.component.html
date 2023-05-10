@@ -1,7 +1,10 @@
 <article>
-  <app-img [img]="product.image"></app-img>
-  <h2>{{ product.price | currency:'EUR' }}</h2>
+  <app-img *ngIf="product.images.length > 0" [img]="product.images[0]"></app-img>
+  <h2>{{ product.price | currency : "USD" }}</h2>
   <p>{{ product.title }}</p>
-  <p appHighlight><{{product.description}}/p>
+  <!-- <p appHighlight><{{product.description}}/p> -->
+
+  <button (click)="onShowDetail()">Show detail</button>
   <button (click)="onAddToCart()">Add to cart</button>
 </article>
+

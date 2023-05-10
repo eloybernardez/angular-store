@@ -1,13 +1,15 @@
-<p>Amount of products is {{shoppingCart.length}}</p>
-<p>Total to pay ${{total}}</p>
-<p>Today: {{today | timeAgo}}</p>
-<p>Other date: {{date | date:'yyyy.dd.MM'}}</p>
-
-
 <section class="products--grid">
   <app-product
     *ngFor="let product of products"
     [product]="product"
+    (showProduct)="onShowDetail($event)"
     (addedProduct)="onAddedToShoppingCart($event)"
   ></app-product>
 </section>
+
+<aside class="product-detail" [class.active]="showProductChosen">
+  <article *ngIf="productChosen">
+    <button (click)="toggleProductChosen()">Close</button>
+    <app-product-detail [productChosen]="productChosen"></app-product-detail>
+  </article>
+</aside>

@@ -10,10 +10,10 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsComponent implements OnInit {
   shoppingCart: Product[] = [];
-  total = 0;
   products: Product[] = [];
-  today = new Date();
-  date = new Date(2023, 1, 25);
+  productChosen!: Product;
+  showProductChosen = false;
+  total = 0;
 
   constructor(
     private storeService: StoreService,
@@ -25,6 +25,18 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.productsService.getAllProducts().subscribe((data) => {
       this.products = data;
+    });
+  }
+
+  toggleProductChosen() {
+    this.showProductChosen = !this.showProductChosen;
+  }
+
+  onShowDetail(id: string) {
+    this.productsService.getProduct(id).subscribe((data) => {
+      // Close side menu
+      this.toggleProductChosen();
+      this.productChosen = data;
     });
   }
 

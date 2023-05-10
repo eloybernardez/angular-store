@@ -1,0 +1,21 @@
+<div class="product-detail">
+  <swiper
+    [slidesPerView]="1"
+    [spaceBetween]="50"
+    [navigation]="true"
+    [loop]="true"
+    [pagination]="{ clickable: true }"
+    *ngIf="productChosen.images.length > 0"
+  >
+    <ng-template swiperSlide *ngFor="let image of productChosen.images">
+      <img [src]="image" [alt]="productChosen.description" />
+    </ng-template>
+  </swiper>
+
+  <h2>{{ productChosen.title }}</h2>
+  <p>{{ productChosen.description }}</p>
+  <div class="product-detail__footer">
+    <button (click)="onAddToCart()">Add to shopping cart</button>
+    <p>{{ productChosen.price | currency }}</p>
+  </div>
+</div>

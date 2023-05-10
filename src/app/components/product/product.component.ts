@@ -8,17 +8,15 @@ import { Product } from '../../models/product.model';
 })
 export class ProductComponent {
   @Output() addedProduct = new EventEmitter<Product>();
-  @Input() product: Product = {
-    id: '',
-    title: '',
-    image: '',
-    price: 0,
-    description: '',
-    category: '',
-  };
+  @Output() showProduct = new EventEmitter<string>();
+  @Input() product!: Product;
 
   onAddToCart() {
     // Tell the parent element to add the product to the cart
     this.addedProduct.emit(this.product);
+  }
+
+  onShowDetail() {
+    this.showProduct.emit(this.product.id);
   }
 }
