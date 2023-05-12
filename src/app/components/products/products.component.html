@@ -1,3 +1,5 @@
+<button (click)="createNewProduct()">Sell product</button>
+
 <section class="products--grid">
   <app-product
     *ngFor="let product of products"
@@ -5,11 +7,16 @@
     (showProduct)="onShowDetail($event)"
     (addedProduct)="onAddedToShoppingCart($event)"
   ></app-product>
+  <button (click)="loadMore()">Load more</button>
 </section>
 
 <aside class="product-detail" [class.active]="showProductChosen">
   <article *ngIf="productChosen">
-    <button (click)="toggleProductChosen()">Close</button>
+    <div class="product-detail__buttons">
+      <button (click)="toggleProductChosen()">Close</button>
+      <button (click)="updateProduct()">Edit</button>
+      <button (click)="deleteProduct()">Delete</button>
+    </div>
     <app-product-detail [productChosen]="productChosen"></app-product-detail>
   </article>
 </aside>

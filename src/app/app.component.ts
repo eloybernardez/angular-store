@@ -10,7 +10,7 @@ export class AppComponent {
   showImg = true;
 
   onLoaded(img: string) {
-    console.log('log padre', img);
+    // console.log('log padre', img);
   }
 
   toggleImg() {

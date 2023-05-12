@@ -1,12 +1,14 @@
-<img (load)="imgLoaded()" (error)="imgError()" [src]="img" *ngIf="img; else elseImg" />
-
-
-<ng-template #elseImg>
+<figure>
   <img
-  [src]="imageDefault"
-  alt="alternate image"
+    (load)="imgLoaded()"
+    (error)="imgError()"
+    [src]="img"
+    *ngIf="img; else elseImg"
   />
-</ng-template>
 
+  <ng-template #elseImg>
+    <img [src]="imageDefault" alt="alternate image" />
+  </ng-template>
+</figure>
 <!-- <h3>{{counter}}</h3>
 <hr/> -->

@@ -15,9 +15,7 @@ import {
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.scss'],
 })
-export class ImgComponent
-  implements OnInit, OnChanges, AfterViewInit, OnDestroy
-{
+export class ImgComponent {
   img = '';
 
   // Get data from parent
@@ -27,7 +25,7 @@ export class ImgComponent
   // we use JS setter
   set imgValue(newImg: string) {
     this.img = newImg;
-    console.log('change just img =>', this.img);
+    // console.log('change just img =>', this.img);
     // code
   }
 
@@ -43,48 +41,48 @@ export class ImgComponent
   constructor() {
     // before render
     // don't use for async
-    console.log('constructor', 'imgValue =>', this.img);
+    // console.log('constructor', 'imgValue =>', this.img);
   }
 
-  ngOnInit(): void {
-    // before render -- runs only once
-    // use for async -- fetch, subscribe, etc
-    console.log('ngOnInit', 'imgValue =>', this.img);
-    // this.timer = window.setInterval(() => {
-    //   this.counter += 1;
-    //   console.log('run counter');
-    // }, 1000);
-  }
+  // ngOnInit(): void {
+  //   // before render -- runs only once
+  //   // use for async -- fetch, subscribe, etc
+  //   console.log('ngOnInit', 'imgValue =>', this.img);
+  //   // this.timer = window.setInterval(() => {
+  //   //   this.counter += 1;
+  //   //   console.log('run counter');
+  //   // }, 1000);
+  // }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // before - during render
-    // change inputs -- runs times
-    console.log('ngOnChanges', 'imgValue =>', this.img);
-    // changes is used to listen ALL the changes made to @Inputs
-    console.log('changes', changes);
-    // if(changes.) {
-    //   // code
-    // }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   // before - during render
+  //   // change inputs -- runs times
+  //   console.log('ngOnChanges', 'imgValue =>', this.img);
+  //   // changes is used to listen ALL the changes made to @Inputs
+  //   console.log('changes', changes);
+  //   // if(changes.) {
+  //   //   // code
+  //   // }
+  // }
 
-  ngAfterViewInit(): void {
-    // after render
-    // handle children
-    console.log('ngAfterViewInit');
-  }
+  // ngAfterViewInit(): void {
+  //   // after render
+  //   // handle children
+  //   console.log('ngAfterViewInit');
+  // }
 
-  ngOnDestroy(): void {
-    // delete from UI
-    console.log('ngOnDestroy');
-    // window.clearInterval(this.timer);
-  }
+  // ngOnDestroy(): void {
+  //   // delete from UI
+  //   console.log('ngOnDestroy');
+  //   // window.clearInterval(this.timer);
+  // }
 
   imgError() {
     this.img = this.imageDefault;
   }
 
   imgLoaded() {
-    console.log('log hijo');
+    // console.log('log hijo');
     this.loaded.emit(this.img);
   }
 }

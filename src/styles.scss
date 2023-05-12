@@ -16,3 +16,18 @@
     }
   }
 }
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #ACD9B2;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    background-color: #52d663;
+    color: #fff;
+  }
+}
