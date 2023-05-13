@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpParams,
+  HttpErrorResponse,
+  HttpStatusCode,
+} from '@angular/common/http';
 import {
   CreateProductDTO,
   Product,
   UpdateProductDTO,
 } from '../models/product.model';
+import { environment } from '../../environments/environment';
+import { catchError } from 'rxjs/operators';
+import { pipe, retry, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private apiUrl = 'https://api.escuelajs.co/api/v1/products';
+  // We are using a proxy (works only in development). Using an environment we let Angular know when to use API_URL from prod or dev
+  private apiUrl = `${environment.API_URL}/api/v1/products`;
   constructor(private http: HttpClient) {}
 
   getAllProducts(limit?: number, offset?: number) {
@@ -20,13 +29,31 @@ export class ProductsService {
       params = params.set('offset', offset);
     }
 
-    return this.http.get<Product[]>(`${this.apiUrl}`, {
-      params: params,
-    });
+    // Retry three times the request
+    return this.http
+      .get<Product[]>(`${this.apiUrl}`, {
+        params: params,
+      })
+      .pipe(retry(3));
   }
 
   getProduct(id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status == HttpStatusCode.Conflict) {
+          // code: 409
+          // this error message will be returned when we catch the error in subscribe(error:(response)=> ...)
+          return throwError(() => new Error('Ups, server error'));
+        } else if (error.status == HttpStatusCode.NotFound) {
+          return throwError(() => new Error('Ups, product not found'));
+        } else if (error.status == HttpStatusCode.Unauthorized) {
+          // code: 401
+          return throwError(() => new Error('Ups, you are not authorized'));
+        } else {
+          return throwError(() => new Error('Ups, something went wrong'));
+        }
+      })
+    );
   }
 
   create(data: CreateProductDTO) {

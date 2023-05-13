@@ -4,8 +4,10 @@ import {
   Product,
   UpdateProductDTO,
 } from 'src/app/models/product.model';
+import Swal from 'sweetalert2';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
@@ -20,6 +22,7 @@ export class ProductsComponent implements OnInit {
   total = 0;
   limit = 10;
   offset = 0;
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
     private storeService: StoreService,
@@ -43,10 +46,25 @@ export class ProductsComponent implements OnInit {
   }
 
   onShowDetail(id: string) {
-    this.productsService.getProduct(id).subscribe((data) => {
-      // Close side menu
-      this.toggleProductChosen();
-      this.productChosen = data;
+    this.statusDetail = 'loading';
+    this.productsService.getProduct(id).subscribe({
+      next: (data) => {
+        // Close side menu
+        this.toggleProductChosen();
+        this.productChosen = data;
+        this.statusDetail = 'success';
+      },
+      // handling errors
+      error: (error: HttpErrorResponse) => {
+        // console.error(errorMsj.message);
+        this.statusDetail = 'error';
+        Swal.fire({
+          title: error.message,
+          text: error.message,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+      },
     });
   }
 

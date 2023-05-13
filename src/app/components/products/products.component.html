@@ -1,4 +1,5 @@
 <button (click)="createNewProduct()">Sell product</button>
+<button (click)="onShowDetail('1213')">Not found product</button>
 
 <section class="products--grid">
   <app-product
@@ -11,6 +12,13 @@
 </section>
 
 <aside class="product-detail" [class.active]="showProductChosen">
+  {{statusDetail}}
+  <div *ngIf="statusDetail === 'loading'" class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
   <article *ngIf="productChosen">
     <div class="product-detail__buttons">
       <button (click)="toggleProductChosen()">Close</button>
