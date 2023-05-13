@@ -5,6 +5,7 @@
   ></app-img>
   <h2>{{ product.price | currency : "USD" }}</h2>
   <p>{{ product.title }}</p>
+  <p class="tax">Tax: {{ product.taxes | currency : "USD" }}</p>
   <!-- <p appHighlight><{{product.description}}/p> -->
   <div>
     <button (click)="onShowDetail()">Show detail</button>

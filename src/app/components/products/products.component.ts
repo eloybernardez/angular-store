@@ -4,10 +4,11 @@ import {
   Product,
   UpdateProductDTO,
 } from 'src/app/models/product.model';
-import Swal from 'sweetalert2';
+import { switchMap } from 'rxjs/operators';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -59,7 +60,7 @@ export class ProductsComponent implements OnInit {
         // console.error(errorMsj.message);
         this.statusDetail = 'error';
         Swal.fire({
-          title: error.message,
+          title: error.type,
           text: error.message,
           icon: 'error',
           confirmButtonText: 'Ok',
@@ -71,6 +72,41 @@ export class ProductsComponent implements OnInit {
   onAddedToShoppingCart(product: Product) {
     this.storeService.addProduct(product);
     this.total = this.storeService.getTotal();
+  }
+
+  readAndUpdate(id: string) {
+    // we use switchMap to consume the observable returned by getProduct
+    this.productsService
+      .getProduct(id)
+      .pipe(
+        switchMap((product) => {
+          return this.productsService.update(product.id, {
+            title: 'new title',
+          });
+          // this.productsService.update(product.id, { title: 'new title' });
+          // this.productsService.update(product.id, { title: 'new title' });
+        })
+      )
+      .subscribe((data) => {
+        console.log(data);
+      });
+
+    // consuming read and update
+    this.productsService
+      .fetchReadAndUpdate(id, { title: 'updated name' })
+      .subscribe((responses) => {
+        const read = responses[0];
+        const updated = responses[1];
+      });
+
+    // Callback hell
+    // .subscribe((data) => {
+    //   const id = data.id;
+    //   this.productsService
+    //     .update(id, { title: 'change' })
+    //     .subscribe((rtaUpdate) => {
+    //       console.log(rtaUpdate);
+    //     });
   }
 
   createNewProduct() {

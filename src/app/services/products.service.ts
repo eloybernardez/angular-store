@@ -10,9 +10,10 @@ import {
   Product,
   UpdateProductDTO,
 } from '../models/product.model';
+
 import { environment } from '../../environments/environment';
-import { catchError } from 'rxjs/operators';
-import { pipe, retry, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { retry, throwError, zip } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,20 @@ export class ProductsService {
       .get<Product[]>(`${this.apiUrl}`, {
         params: params,
       })
-      .pipe(retry(3));
+      .pipe(
+        retry(3),
+        // we use rxjs' method map to modify the request's data
+        map((products) =>
+          products.map((item) => {
+            return { ...item, taxes: 0.19 * item.price };
+          })
+        )
+      );
+  }
+
+  fetchReadAndUpdate(id: string, data: UpdateProductDTO) {
+    // zip is like Promise.all but for Observables
+    return zip(this.getProduct(id), this.update(id, data));
   }
 
   getProduct(id: string) {
