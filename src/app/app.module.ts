@@ -15,6 +15,8 @@ import { ChallengePipe } from './pipes/challenge.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { SwiperModule } from 'swiper/angular';
+import { CreateUserComponent } from './components/create-user/create-user.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { SwiperModule } from 'swiper/angular';
     ChallengePipe,
     HighlightDirective,
     ProductDetailComponent,
+    CreateUserComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

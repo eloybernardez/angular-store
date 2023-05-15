@@ -1,0 +1,22 @@
+.login-container {
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .input-container {
+      margin: 1rem 0.5rem;
+      label {
+        font-size: .8rem;
+        font-weight: bold;
+        margin: 0.4rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .login-container {
+    display: none;
+  }
+}

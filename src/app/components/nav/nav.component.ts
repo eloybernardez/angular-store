@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { StoreService } from 'src/app/services/store.service';
 export class NavComponent implements OnInit {
   openMenu = false;
   counter = 0;
+  loggedUser!: User;
+  loggedEmail = '';
 
   constructor(private storeService: StoreService) {}
 
@@ -21,5 +24,13 @@ export class NavComponent implements OnInit {
 
   toggleMenu() {
     this.openMenu = !this.openMenu;
+  }
+
+  onLoggedUser(user: User) {
+    this.loggedEmail = user.email;
+  }
+
+  onLogout() {
+    this.loggedEmail = '';
   }
 }

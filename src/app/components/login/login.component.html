@@ -1,0 +1,17 @@
+<section class="login-container">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+    <div class="input-container">
+      <label for="email-login">Email</label>
+      <input id="email-login" name="email" type="email" ngModel #email="ngModel" required [class.invalid]="loginForm.invalid && email.touched" />
+    </div>
+
+    <div class="input-container">
+      <label for="password-login">Password</label>
+      <input id="password-login" type="password" name="password" ngModel #password="ngModel" required [class.invalid]="loginForm.invalid && email.touched"  />
+    </div>
+
+    <button type="submit">Log in</button>
+  </form>
+</section>
+

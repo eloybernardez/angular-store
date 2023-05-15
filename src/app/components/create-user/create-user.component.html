@@ -1,0 +1,21 @@
+<section class="form-container">
+  <h2>Create user</h2>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+    <div class="input-container">
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name" ngModel #name="ngModel" required/>
+    </div>
+
+    <div class="input-container">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" ngModel #email="ngModel" required [class.invalid]="loginForm.invalid && email.touched" />
+    </div>
+
+    <div class="input-container">
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" ngModel #password="ngModel" required [class.invalid]="loginForm.invalid && email.touched"  />
+    </div>
+
+    <button type="submit">Sign in</button>
+  </form>
+</section>

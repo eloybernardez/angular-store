@@ -27,13 +27,22 @@
       <app-nav-links></app-nav-links>
     </nav>
     <div class="info">
-      <div class="account">nicolas@nicolas.com</div>
-      <div class="cart">
-        <a href="">
-          <img src="./assets/svg/icon_shopping_cart.svg" alt="logo" />
-        </a>
-        <span class="counter">{{ counter }}</span>
-      </div>
+      <app-login
+        (loggedUser)="onLoggedUser($event)"
+        *ngIf="!loggedEmail; else loggedBlock"
+      ></app-login>
+      <ng-template #loggedBlock>
+        <div>
+          <span>{{ loggedEmail }}</span>
+          <button class="logout" (click)="onLogout()">Logout</button>
+        </div>
+        <div class="cart">
+          <a href="">
+            <img src="./assets/svg/icon_shopping_cart.svg" alt="logo" />
+          </a>
+          <span class="counter">{{ counter }}</span>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
