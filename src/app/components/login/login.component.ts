@@ -3,7 +3,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
-import { switchMap } from 'rxjs';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
@@ -18,30 +17,19 @@ export class LoginComponent {
 
   onSubmit(form: NgForm) {
     const { email, password }: { email: string; password: string } = form.value;
-    this.logAndProfile(email, password);
-  }
-
-  logAndProfile(email: string, password: string) {
-    this.authService
-      .login(email, password)
-      .pipe(
-        switchMap((token) => {
-          return this.authService.profile(token.access_token);
-        })
-      )
-      .subscribe({
-        next: (user) => {
-          this.user = user;
-          this.loggedUser.emit(user);
-        },
-        error: (error: HttpErrorResponse) => {
-          Swal.fire({
-            title: error.type,
-            text: error.message,
-            icon: 'error',
-            confirmButtonText: 'Ok',
-          });
-        },
-      });
+    this.authService.loginAndProfile(email, password).subscribe({
+      next: (user) => {
+        this.user = user;
+        this.loggedUser.emit(user);
+      },
+      error: (error: HttpErrorResponse) => {
+        Swal.fire({
+          title: error.type,
+          text: error.message,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+      },
+    });
   }
 }

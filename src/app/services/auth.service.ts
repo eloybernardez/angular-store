@@ -9,17 +9,23 @@ import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Auth } from '../models/auth.model';
 import { User } from '../models/user.model';
+import { tap } from 'rxjs/operators';
+import { TokenService } from './token.service';
+import { switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = `${environment.API_URL}/api/v1/auth`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   login(email: string, password: string) {
     return this.http
       .post<Auth>(`${this.apiUrl}/login`, { email, password })
+      .pipe(
+        tap((response) => this.tokenService.saveToken(response.access_token))
+      )
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status == HttpStatusCode.Conflict) {
@@ -35,11 +41,8 @@ export class AuthService {
       );
   }
 
-  profile(token: string) {
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    return this.http.get<User>(`${this.apiUrl}/profile`, { headers }).pipe(
+  getProfile() {
+    return this.http.get<User>(`${this.apiUrl}/profile`).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status == HttpStatusCode.Conflict) {
           return throwError(() => new Error('Ups, server error'));
@@ -54,4 +57,7 @@ export class AuthService {
     );
   }
 
+  loginAndProfile(email: string, password: string) {
+    return this.login(email, password).pipe(switchMap(() => this.getProfile()));
+  }
 }
