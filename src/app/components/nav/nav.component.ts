@@ -10,8 +10,16 @@ import { StoreService } from 'src/app/services/store.service';
 export class NavComponent implements OnInit {
   openMenu = false;
   counter = 0;
-  loggedUser!: User;
-  loggedEmail = '';
+  loggedUser: User = {
+    id: 0,
+    name: '',
+    email: '',
+    password: '',
+    role: '',
+    avatar: '',
+    createAt: new Date(),
+    updateAt: new Date(),
+  };
 
   constructor(private storeService: StoreService) {}
 
@@ -27,10 +35,10 @@ export class NavComponent implements OnInit {
   }
 
   onLoggedUser(user: User) {
-    this.loggedEmail = user.email;
+    this.loggedUser = user;
   }
 
   onLogout() {
-    this.loggedEmail = '';
+    this.loggedUser = {} as User;
   }
 }

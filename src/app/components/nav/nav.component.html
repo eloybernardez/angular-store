@@ -29,11 +29,11 @@
     <div class="info">
       <app-login
         (loggedUser)="onLoggedUser($event)"
-        *ngIf="!loggedEmail; else loggedBlock"
+        *ngIf="!loggedUser.email; else loggedBlock"
       ></app-login>
       <ng-template #loggedBlock>
         <div>
-          <span>{{ loggedEmail }}</span>
+          <span>{{ loggedUser.email }}</span>
           <button class="logout" (click)="onLogout()">Logout</button>
         </div>
         <div class="cart">
