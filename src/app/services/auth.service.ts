@@ -24,9 +24,7 @@ export class AuthService {
     return this.http
       .post<Auth>(`${this.apiUrl}/login`, { email, password })
       .pipe(
-        tap((response) => this.tokenService.saveToken(response.access_token))
-      )
-      .pipe(
+        tap((response) => this.tokenService.saveToken(response.access_token)),
         catchError((error: HttpErrorResponse) => {
           if (error.status == HttpStatusCode.Conflict) {
             return throwError(() => new Error('Ups, server error'));

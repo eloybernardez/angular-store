@@ -10,6 +10,5 @@
     "secure": true,
     "loglevel": "debug",
     "changeOrigin": true
-    }
-
+  }
 }

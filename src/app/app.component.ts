@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   imgParent = ''; // default value of imgParent
   showImg = true;
+  imgRta = '';
 
   constructor(private filesService: FilesService, private http: HttpClient) {}
 
@@ -29,6 +30,16 @@ export class AppComponent {
         'application/pdf'
       )
       .subscribe((res) => console.log(res));
+  }
+
+  onUpload(event: Event) {
+    const element = event.target as HTMLInputElement;
+    const file = element.files?.[0];
+    if (file) {
+      this.filesService
+        .uploadFile(file)
+        .subscribe((rta) => (this.imgRta = rta.location));
+    }
   }
 }
 
