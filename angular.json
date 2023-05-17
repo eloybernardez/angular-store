@@ -17,6 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "sweetalert2",
+              "file-saver"
+            ],
             "outputPath": "dist/angular-store",
             "index": "src/index.html",
             "main": "src/main.ts",

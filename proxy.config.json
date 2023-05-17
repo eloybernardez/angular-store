@@ -4,5 +4,12 @@
     "secure": true,
     "loglevel": "debug",
     "changeOrigin": true
-  }
+  },
+  "/WAI/ER/tests/xhtml/testfiles/resources/*": {
+    "target": "https://www.w3.org",
+    "secure": true,
+    "loglevel": "debug",
+    "changeOrigin": true
+    }
+
 }

@@ -10,7 +10,7 @@ import {
   Product,
   UpdateProductDTO,
 } from '../models/product.model';
-
+import { checkTime } from '../interceptors/time.interceptor';
 import { environment } from '../../environments/environment';
 import { catchError, map } from 'rxjs/operators';
 import { retry, throwError, zip } from 'rxjs';
@@ -34,6 +34,7 @@ export class ProductsService {
     return this.http
       .get<Product[]>(`${this.apiUrl}`, {
         params: params,
+        context: checkTime(),
       })
       .pipe(
         retry(3),
